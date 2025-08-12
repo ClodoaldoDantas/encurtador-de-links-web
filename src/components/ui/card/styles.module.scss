@@ -1,0 +1,9 @@
+.card {
+  padding: 1.5rem;
+  background-color: var(--white);
+  border-radius: 0.5rem;
+
+  @media(width >= 1024px) {
+    padding: 2rem;
+  }
+}

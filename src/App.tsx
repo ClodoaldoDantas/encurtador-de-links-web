@@ -1,12 +1,5 @@
-import styles from './App.module.css'
-import logoImage from './assets/logo.svg'
+import { HomePage } from './pages/home/page'
 
 export function App() {
-	return (
-		<main className={styles.container}>
-			<header className={styles.header}>
-				<img src={logoImage} alt="Encurtador" />
-			</header>
-		</main>
-	)
+	return <HomePage />
 }
