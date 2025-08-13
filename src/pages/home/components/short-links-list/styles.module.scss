@@ -1,39 +1,41 @@
 .title {
   font-size: 1.25rem;
   line-height: 1.5rem;
-  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-200);
 }
 
-.listItem {
-  padding: 1rem 0;
-  border-top: 1px solid var(--gray-200);
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.listItemInfo {
+.emptyState,
+.loadingState,
+.errorState {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 0 1.5rem;
 
-  a {
-    color: var(--blue-base);
-    font-size: 1rem;
-    font-weight: 600;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  span {
+  p {
+    text-transform: uppercase;
     font-size: 0.875rem;
   }
 }
 
-.listItemActions {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+.loadingState svg {
+  animation: spin 2s linear infinite;
+  color: var(--blue-base);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.errorState {
+  color: var(--danger);
 }

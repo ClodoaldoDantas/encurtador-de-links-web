@@ -1,0 +1,36 @@
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+}
+
+.listItem+.listItem {
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.listItemInfo {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    color: var(--blue-base);
+    font-size: 1rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    font-size: 0.875rem;
+  }
+}
+
+.listItemActions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

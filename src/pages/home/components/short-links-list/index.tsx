@@ -1,59 +1,48 @@
-import { CopyIcon, TrashIcon } from '@phosphor-icons/react'
+import {
+	CircleNotchIcon,
+	LinkIcon,
+	WarningOctagonIcon,
+} from '@phosphor-icons/react'
 import { Card } from '../../../../components/ui/card'
-import { IconButton } from '../../../../components/ui/icon-button'
+import type { Link } from '../../../../types/link'
+import { ShortLinkItem } from '../short-link-item'
 import styles from './styles.module.scss'
 
 export function ShortLinksList() {
-	const allLinks = [
-		{
-			id: 1,
-			original_url: 'https://www.google.com',
-			short_url: 'https://short.url/1',
-		},
-		{
-			id: 2,
-			original_url: 'https://www.example.com',
-			short_url: 'https://short.url/2',
-		},
-		{
-			id: 3,
-			original_url: 'https://www.test.com',
-			short_url: 'https://short.url/3',
-		},
-		{
-			id: 4,
-			original_url: 'https://www.another-example.com',
-			short_url: 'https://short.url/4',
-		},
-	]
+	const allLinks: Link[] = [] // This should be replaced with actual data fetching logic
+	const loading = false // This should be replaced with actual loading state
+	const isError = false // This should be replaced with actual error state
 
 	return (
 		<Card>
 			<h2 className={styles.title}>Meus Links</h2>
 
-			<ul className={styles.list}>
-				{allLinks.map((link) => (
-					<li key={link.id} className={styles.listItem}>
-						<div className={styles.listItemInfo}>
-							<a href={link.short_url} rel="noopener noreferrer">
-								{link.short_url}
-							</a>
-
-							<span>{link.original_url}</span>
+			{loading ? (
+				<div className={styles.loadingState}>
+					<CircleNotchIcon size={32} />
+					<p>Carregando...</p>
+				</div>
+			) : isError ? (
+				<div className={styles.errorState}>
+					<WarningOctagonIcon size={32} />
+					<p>Erro ao carregar links</p>
+				</div>
+			) : (
+				<>
+					{allLinks.length === 0 && (
+						<div className={styles.emptyState}>
+							<LinkIcon size={32} />
+							<p>Ainda não existem links cadastrados</p>
 						</div>
+					)}
 
-						<div className={styles.listItemActions}>
-							<IconButton aria-label="Copiar link encurtado">
-								<CopyIcon size={18} />
-							</IconButton>
-
-							<IconButton aria-label="Excluir link encurtado">
-								<TrashIcon size={18} />
-							</IconButton>
-						</div>
-					</li>
-				))}
-			</ul>
+					<ul className={styles.list}>
+						{allLinks.map((link) => (
+							<ShortLinkItem key={link.id} link={link} />
+						))}
+					</ul>
+				</>
+			)}
 		</Card>
 	)
 }
