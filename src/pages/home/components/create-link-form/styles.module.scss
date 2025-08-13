@@ -1,9 +1,97 @@
 .title {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   line-height: 1.5rem;
   margin-bottom: 1.25rem;
 
-  @media(width >= 1024px) {
+  @media(width >= 64em) {
     margin-bottom: 1.5rem;
+  }
+}
+
+.form > button[type="submit"] {
+  margin-top: 1.25rem;
+
+  @media(width >= 64em) {
+    margin-top: 1.5rem;
+  }
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &:focus-within label {
+    color: var(--blue-base);
+  }
+
+  &[data-state='invalid'] label {
+    color: var(--danger);
+  }
+
+  &[data-state='invalid'] input:focus {
+    outline-color: var(--danger);
+  }
+}
+
+.formLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.formInput {
+  height: 3rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-300);
+
+  font-size: 16px;
+  color: var(--gray-600);
+
+  &::placeholder {
+    color: var(--gray-400);
+  }
+
+  &:focus {
+    outline: 2px solid var(--blue-base);
+  }
+}
+
+.formError {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    color: var(--danger);
+  }
+
+  span {
+    font-size: 0.875rem;
+  }
+}
+
+.button {
+  width: 100%;
+  cursor: pointer;
+
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 0;
+
+  font-size: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  background-color: var(--blue-base);
+  color: var(--white);
+
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--blue-dark);
   }
 }
