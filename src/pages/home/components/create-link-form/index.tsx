@@ -1,29 +1,28 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { WarningCircleIcon } from '@phosphor-icons/react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import * as z from 'zod'
+import { Button } from '../../../../components/ui/button'
 import { Card } from '../../../../components/ui/card'
+import { Field } from '../../../../components/ui/field'
 import styles from './styles.module.scss'
 
 const formSchema = z.object({
 	originalUrl: z.url({
-		error: 'URL inválida',
+		error: 'Digite um link válido',
 	}),
 })
 
 type CreateLinkFormData = z.infer<typeof formSchema>
 
 export function CreateLinkForm() {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<CreateLinkFormData>({
+	const methods = useForm<CreateLinkFormData>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			originalUrl: '',
 		},
 	})
+
+	const { handleSubmit } = methods
 
 	const handleCreateLink = (data: CreateLinkFormData) => {
 		console.log(data)
@@ -33,35 +32,20 @@ export function CreateLinkForm() {
 		<Card>
 			<h2 className={styles.title}>Gerar novo link</h2>
 
-			<form onSubmit={handleSubmit(handleCreateLink)} className={styles.form}>
-				<div
-					className={styles.formItem}
-					data-state={errors.originalUrl ? 'invalid' : 'default'}
-				>
-					<label className={styles.formLabel} htmlFor="original-link">
-						link original
-					</label>
+			<FormProvider {...methods}>
+				<form onSubmit={handleSubmit(handleCreateLink)} className={styles.form}>
+					<Field.Root>
+						<Field.Label>Link Original</Field.Label>
+						<Field.Control
+							type="text"
+							name="originalUrl"
+							placeholder="https://www.exemplo.com.br"
+						/>
+					</Field.Root>
 
-					<input
-						type="text"
-						id="original-link"
-						placeholder="https://www.exemplo.com.br"
-						className={styles.formInput}
-						{...register('originalUrl')}
-					/>
-
-					{errors.originalUrl && (
-						<div className={styles.formError}>
-							<WarningCircleIcon size={20} />
-							<span>{errors.originalUrl?.message}</span>
-						</div>
-					)}
-				</div>
-
-				<button className={styles.button} type="submit">
-					Salvar link
-				</button>
-			</form>
+					<Button type="submit">Salvar link</Button>
+				</form>
+			</FormProvider>
 		</Card>
 	)
 }

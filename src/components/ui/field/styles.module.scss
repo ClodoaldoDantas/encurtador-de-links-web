@@ -1,0 +1,54 @@
+.fieldRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &:focus-within label {
+    color: var(--blue-base);
+  }
+
+  &:has(input[data-state='invalid']) label {
+    color: var(--danger);
+  }
+
+  &:has(input[data-state='invalid']) input:focus {
+    outline-color: var(--danger);
+  }
+}
+
+.fieldLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.fieldInput {
+  height: 3rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-300);
+
+  font-size: 16px;
+  color: var(--gray-600);
+
+  &::placeholder {
+    color: var(--gray-400);
+  }
+
+  &:focus {
+    outline: 2px solid var(--blue-base);
+  }
+}
+
+.fieldMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    color: var(--danger);
+  }
+
+  span {
+    font-size: 0.875rem;
+  }
+}
