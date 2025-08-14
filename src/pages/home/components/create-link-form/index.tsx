@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { FormProvider, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import * as z from 'zod'
 import { Button } from '../../../../components/ui/button'
 import { Card } from '../../../../components/ui/card'
@@ -30,12 +31,15 @@ export function CreateLinkForm() {
 
 	const mutation = useMutation({
 		mutationFn: async (data: CreateLinkFormData) => {
-			await new Promise((resolve) => setTimeout(resolve, 2000))
 			return http.post('/link/create', { original_url: data.originalUrl })
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['short-links'] })
+			toast.success('Link encurtado com sucesso!')
 			reset({ originalUrl: '' })
+		},
+		onError: () => {
+			toast.error('Falha ao encurtar o link.')
 		},
 	})
 
