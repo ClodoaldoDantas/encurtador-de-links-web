@@ -18,7 +18,12 @@
 
   transition: all 0.2s;
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: var(--blue-dark);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }

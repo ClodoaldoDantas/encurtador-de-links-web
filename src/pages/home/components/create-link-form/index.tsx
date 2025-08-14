@@ -1,9 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { Button } from '../../../../components/ui/button'
 import { Card } from '../../../../components/ui/card'
 import { Field } from '../../../../components/ui/field'
+import { http } from '../../../../lib/http'
 import styles from './styles.module.scss'
 
 const formSchema = z.object({
@@ -22,10 +24,23 @@ export function CreateLinkForm() {
 		},
 	})
 
-	const { handleSubmit } = methods
+	const { handleSubmit, reset } = methods
+
+	const queryClient = useQueryClient()
+
+	const mutation = useMutation({
+		mutationFn: async (data: CreateLinkFormData) => {
+			await new Promise((resolve) => setTimeout(resolve, 2000))
+			return http.post('/link/create', { original_url: data.originalUrl })
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['short-links'] })
+			reset({ originalUrl: '' })
+		},
+	})
 
 	const handleCreateLink = (data: CreateLinkFormData) => {
-		console.log(data)
+		mutation.mutate(data)
 	}
 
 	return (
@@ -43,7 +58,9 @@ export function CreateLinkForm() {
 						/>
 					</Field.Root>
 
-					<Button type="submit">Salvar link</Button>
+					<Button type="submit" disabled={mutation.isPending}>
+						Salvar link
+					</Button>
 				</form>
 			</FormProvider>
 		</Card>
