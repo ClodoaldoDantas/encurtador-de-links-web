@@ -30,7 +30,7 @@ export function CreateLinkForm() {
 	const queryClient = useQueryClient()
 
 	const mutation = useMutation({
-		mutationFn: async (data: CreateLinkFormData) => {
+		mutationFn: (data: CreateLinkFormData) => {
 			return http.post('/link/create', { original_url: data.originalUrl })
 		},
 		onSuccess: () => {

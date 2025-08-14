@@ -1,6 +1,5 @@
-import { TrashIcon } from '@phosphor-icons/react'
-import { IconButton } from '../../../../components/ui/icon-button'
 import { CopyLinkButton } from '../copy-link-button'
+import { DeleteLinkButton } from '../delete-link-button'
 import styles from './styles.module.scss'
 
 type ShortLinkItemProps = {
@@ -24,10 +23,7 @@ export function ShortLinkItem({ link }: ShortLinkItemProps) {
 
 			<div className={styles.listItemActions}>
 				<CopyLinkButton url={link.short_url} />
-
-				<IconButton aria-label="Excluir link encurtado">
-					<TrashIcon size={18} />
-				</IconButton>
+				<DeleteLinkButton linkId={link.id} />
 			</div>
 		</li>
 	)
